@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Java Code Analysis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 40px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        .upload-container {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .upload-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .custom-file-label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .upload-btn {
+            margin-top: 20px;
+        }
+        .result-container {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        .result-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .method-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .method-code {
+            font-family: monospace;
+            white-space: pre-wrap;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .long-method {
+            background-color: #ffe7e7;
+        }
+        .not-long-method {
+            background-color: #e7ffe7;
+        }
+        .class-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .class-code {
+            font-family: monospace;
+            white-space: pre-wrap;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .god-class {
+            background-color: #ffe7e7;
+        }
+        .not-god-class {
+            background-color: #e7ffe7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Java Code Analysis</h1>
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <div class="upload-container">
+            <h2 class="upload-title">Upload a Java File:</h2>
+            <form method="post" enctype="multipart/form-data" action="{{ url_for('upload_file') }}">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="file" name="file" accept=".java" required onchange="updateFileName()">
+                    <label class="custom-file-label" for="file">Choose file</label>
+                </div>
+                <button type="submit" class="btn btn-primary upload-btn">Upload</button>
+            </form>
+        </div>
+
+        {% if methods_result %}
+            <div class="result-container">
+                <h2 class="result-title">Methods:</h2>
+                {% for method in methods_result %}
+                    <div>
+                        <h3 class="method-name">{{ method.method_name }}</h3>
+                        <pre class="method-code">{{ method.method_code_snippet }}</pre>
+                        {% if method.is_long_method == 'Long Method' %}
+                            <p class="long-method">Long Method Detected</p>
+                        {% else %}
+                            <p class="not-long-method">Not a Long Method</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if classes_result %}
+            <div class="result-container">
+                <h2 class="result-title">Classes:</h2>
+                {% for class in classes_result %}
+                    <div>
+                        <h3 class="class-name">{{ class.class_name }}</h3>
+                        <pre class="class-code">{{ class.class_code_snippet }}</pre>
+                        {% if class.is_god_class == 'God Class' %}
+                            <p class="god-class">God Class Detected</p>
+                        {% else %}
+                            <p class="not-god-class">Not a God Class</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function updateFileName() {
+            const fileInput = document.getElementById('file');
+            const fileNameLabel = document.querySelector('.custom-file-label');
+            fileNameLabel.textContent = fileInput.files[0].name;
+        }
+    </script>
+</body>
+</html>

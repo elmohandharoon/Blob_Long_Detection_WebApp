@@ -1,0 +1,1 @@
+web: gunicorn smell_detection_web_app:app

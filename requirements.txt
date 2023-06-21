@@ -1,0 +1,9 @@
+flask-ngrok
+pyngrok
+torch
+transformers
+javalang
+nltk
+pandas
+numpy
+joblib

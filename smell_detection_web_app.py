@@ -10,28 +10,20 @@ Original file is located at
 
 #web app using flask and ngrok to run the app from google virsual machine
 
-#!pip install flask-ngrok
-#!pip install pyngrok
-#!pip install torch transformers
-#!pip install transformers
-#!pip install javalang
-import nltk
 import pandas as pd
 import torch
 import javalang
 import numpy as np
 import joblib
 import ast
-from transformers import BertModel
-from transformers import BertTokenizer
+from transformers import BertModel, BertTokenizer
 from sklearn.preprocessing import StandardScaler
 from javalang.ast import Node
 from javalang.parser import Parser
 from javalang.tokenizer import tokenize
 from flask import Flask, render_template, request
-from flask_ngrok import run_with_ngrok
 from werkzeug.utils import secure_filename
-from pyngrok import ngrok
+
 
 app = Flask(__name__, template_folder='/content/templates')
 #ngrok.set_auth_token('2RQiWOdFHplAaSpQUCH9WOV1auv_2ceqcvPyqL8Wz7uQPBWVN')

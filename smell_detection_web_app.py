@@ -10,11 +10,11 @@ Original file is located at
 
 #web app using flask and ngrok to run the app from google virsual machine
 
-!pip install flask-ngrok
-!pip install pyngrok
-!pip install torch transformers
-!pip install transformers
-!pip install javalang
+#!pip install flask-ngrok
+#!pip install pyngrok
+#!pip install torch transformers
+#!pip install transformers
+#!pip install javalang
 import nltk
 import pandas as pd
 import torch

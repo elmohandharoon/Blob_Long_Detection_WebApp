@@ -1,1 +1,1 @@
-# Blob_Long_Detection_WebApp
+# God_Class_Long_Method_Detection_WebApp
